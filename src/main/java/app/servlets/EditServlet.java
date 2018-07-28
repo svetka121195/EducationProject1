@@ -1,5 +1,6 @@
 package app.servlets;
 
+import app.model.Role;
 import app.service.UserService;
 import app.model.User;
 import app.service.UserServiceImp;
@@ -53,12 +54,13 @@ public class EditServlet extends HttpServlet {
         } else {
             User user = new User(req.getParameter("name"),
                     req.getParameter("login"),
-                    req.getParameter("password"));
+                    req.getParameter("password"),
+                    Role.valueOf(req.getParameter("role")));
             user.setId(id);
 
             userService.updateUser(user);
 
-            resp.sendRedirect("/list");
+            resp.sendRedirect("/admin");
         }
     }
 }

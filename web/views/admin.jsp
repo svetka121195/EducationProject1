@@ -1,7 +1,8 @@
 <%@ page import="app.model.User" %>
 <%@ page import="app.model.Role" %>
 <%@ page import="java.util.List" %>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %><%--
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%--
   Created by IntelliJ IDEA.
   User: Светлана
   Date: 13.07.2018
@@ -34,7 +35,7 @@
         </tr>
         <tr>
             <td>Role:</td>
-            <td><input type="radio" name="role" value="user">user</input><br>
+            <td><input type="radio" name="role" value="user" checked>user</input><br>
                 <input type="radio" name="role" value="admin">admin</input>
             </td>
 
@@ -42,10 +43,6 @@
         <tr><td><button type="submit">Submit</button></td></tr>
     </table>
 </form>
-
-
-<p><c:out value="${error}"/></p>
-
 
 
 <table border="1">
@@ -84,6 +81,7 @@
     </c:forEach>
 
 </table>
+
 
 </body>
 </html>

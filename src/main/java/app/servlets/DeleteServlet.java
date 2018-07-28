@@ -31,7 +31,7 @@ public class DeleteServlet extends HttpServlet {
             requestDispatcher.forward(req, resp);
         } else {
             userService.deleteUser(id);
-            resp.sendRedirect("/list");
+            resp.sendRedirect("/admin");
         }
     }
 }

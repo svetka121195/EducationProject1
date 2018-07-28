@@ -1,6 +1,7 @@
 package app.servlets;
 
 
+import app.model.Role;
 import app.service.UserService;
 import app.model.User;
 import app.service.UserServiceImp;
@@ -13,8 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/list")
-public class ListServlet extends HttpServlet {
+@WebServlet("/admin")
+public class AdminServlet extends HttpServlet {
     private UserService userService = UserServiceImp.getInstance();
 
     @Override
@@ -26,7 +27,7 @@ public class ListServlet extends HttpServlet {
         req.setAttribute("usersList", userService.getAllUsers());
 
         resp.setStatus(HttpServletResponse.SC_OK);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/list.jsp");
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/admin.jsp");
         requestDispatcher.forward(req, resp);
 
     }
@@ -40,10 +41,11 @@ public class ListServlet extends HttpServlet {
         if (userService.getUserId(req.getParameter("login")) == -1) {
             User user = new User(req.getParameter("name"),
                     req.getParameter("login"),
-                    req.getParameter("password"));
+                    req.getParameter("password"),
+                    Role.valueOf(req.getParameter("role")));
 
             userService.addUser(user);
-            resp.sendRedirect("/list");
+            resp.sendRedirect("/admin");
         } else {
             req.setAttribute("error", "login is already used");
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/error");

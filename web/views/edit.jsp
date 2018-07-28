@@ -1,5 +1,6 @@
 <%@ page import="app.model.User" %>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="app.model.Role" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Светлана
@@ -13,18 +14,39 @@
     <title>Edit user</title>
 </head>
 <body>
-<H3>Edit user: <c:out value="${user.login}"/></H3>
+
+
 <form method="post">
-    <label>Name:
-        <input type="text" name="name" placeholder="${user.name}"><br />
-    </label>
-    <label>Login:
-        <input type="text" name="login" placeholder="${user.login}"><br />
-    </label>
-    <label>Password:
-        <input type="password" name="password" placeholder="${user.password}"><br />
-    </label>
-    <button type="submit" name="id" value="<c:out value="${user.id}"/>">Submit</button>
+    <table>
+        <tr>
+            <th>Edit user: <c:out value="${user.login}"/></th>
+        </tr>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" name="name" placeholder="${user.name}"></td>
+        </tr>
+        <tr>
+            <td>Login:</td>
+            <td><input type="text" name="login" placeholder="${user.login}">
+            <td/>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type="password" name="password" placeholder="${user.password}"></td>
+        </tr>
+        <tr>
+            <td>Role:</td>
+            <td><input type="radio" name="role" value="user" checked>user</input><br>
+                <input type="radio" name="role" value="admin">admin</input>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit" name="id" value="<c:out value="${user.id}"/>">Submit</button>
+            </td>
+        </tr>
+    </table>
 </form>
+
 </body>
 </html>

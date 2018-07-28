@@ -1,4 +1,5 @@
 package app.model;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -17,8 +18,13 @@ public class User implements Serializable {
     @Column(name = "user_login", length = 256, unique = true)
     private String login;
 
-     @Column(name = "user_password", length = 256)
+    @Column(name = "user_password", length = 256)
     private String password;
+
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_role", length = 256, columnDefinition="enum('admin','user')")
+    private Role role = Role.user;
 
     public User() {
     }
@@ -27,6 +33,13 @@ public class User implements Serializable {
         this.name = name;
         this.login = login;
         this.password = password;
+    }
+
+    public User(String name, String login, String password, Role role) {
+        this.name = name;
+        this.login = login;
+        this.password = password;
+        this.role = role;
     }
 
     public long getId() {
@@ -45,6 +58,10 @@ public class User implements Serializable {
         return password;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -59,6 +76,10 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
@@ -93,3 +114,4 @@ public class User implements Serializable {
         return result;
     }
 }
+
