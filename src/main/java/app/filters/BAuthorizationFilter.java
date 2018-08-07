@@ -32,22 +32,19 @@ public class BAuthorizationFilter implements Filter {
 
         if (id == -1) {
             resp.sendError(401, "Login is not found");
-        }
-
-        User user = userService.getUser(id);
-
-        if (!password.equals(user.getPassword())) {
-            resp.sendError(401, "Wrong password");
-        }
-        req.getSession(true).setAttribute("currentUser", user);
-
-        switch (user.getRole()) {
-            case admin:
-                resp.sendRedirect("/admin");
-
-            default:
-                resp.sendRedirect("/user");
-
+        } else {
+            User user = userService.getUser(id);
+            if (password.equals(user.getPassword())) {
+                req.getSession().setAttribute("currentUser", user);
+                if (user.getRole() == Role.admin) {
+                    resp.sendRedirect("/admin");
+                } else {
+                    RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/user.jsp");
+                    requestDispatcher.forward(req, resp);
+                }
+            } else {
+                resp.sendError(401, "Wrong password");
+            }
         }
     }
 }
