@@ -22,7 +22,7 @@ public class ErrorServlet extends HttpServlet {
         req.setAttribute("usersList", userService.getAllUsers());
 
         resp.setStatus(HttpServletResponse.SC_OK);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/error.jsp");
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/admin.jsp");
         requestDispatcher.forward(req, resp);
     }
 

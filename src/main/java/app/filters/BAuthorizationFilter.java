@@ -15,36 +15,28 @@ import java.io.IOException;
 /**
  * Created by Светлана on 29.07.2018.
  */
-@WebFilter("/Authorization")
+@WebFilter("/admin")
 public class BAuthorizationFilter implements Filter {
-    private UserService userService = UserServiceImp.getInstance();
+	private UserService userService = UserServiceImp.getInstance();
 
-    @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+	@Override
+	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
-        HttpServletRequest req = (HttpServletRequest) servletRequest;
-        HttpServletResponse resp = (HttpServletResponse) servletResponse;
+		HttpServletRequest req = (HttpServletRequest) servletRequest;
+		HttpServletResponse resp = (HttpServletResponse) servletResponse;
 
-        String login = (String) req.getParameter("login");
-        String password = (String) req.getParameter("password");
-        Long id = userService.getUserId(login);
+		User userFromSession = (User) req.getSession(true).getAttribute("currentUser");
 
+		if (userFromSession == null){
+			resp.sendError(401, "Unauthorized");
+		}
 
-        if (id == -1) {
-            resp.sendError(401, "Login is not found");
-        } else {
-            User user = userService.getUser(id);
-            if (password.equals(user.getPassword())) {
-                req.getSession().setAttribute("currentUser", user);
-                if (user.getRole() == Role.admin) {
-                    resp.sendRedirect("/admin");
-                } else {
-                    RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/user.jsp");
-                    requestDispatcher.forward(req, resp);
-                }
-            } else {
-                resp.sendError(401, "Wrong password");
-            }
-        }
-    }
+		User userFromBD = userService.getUser(userFromSession.getId());
+
+		if (userFromBD == null || !userFromSession.getLogin().equals(userFromBD.getLogin())
+				|| !userFromSession.getPassword().equals(userFromBD.getPassword())) {
+			resp.sendError(401, "Invalid current user");
+		}
+		filterChain.doFilter(servletRequest, servletResponse);
+	}
 }

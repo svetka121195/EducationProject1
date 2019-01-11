@@ -1,13 +1,13 @@
-<%@ page import="app.model.User" %>
+<%--<%@ page import="app.model.User" %>
 <%@ page import="app.model.Role" %>
 <%@ page import="java.util.List" %>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %><%--
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>&lt;%&ndash;
   Created by IntelliJ IDEA.
   User: Светлана
   Date: 13.07.2018
   Time: 15:54
   To change this template use File | Settings | File Templates.
---%>
+&ndash;%&gt;
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -86,4 +86,4 @@
 </table>
 
 </body>
-</html>
+</html>--%>

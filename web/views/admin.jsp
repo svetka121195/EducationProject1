@@ -38,12 +38,13 @@
             <td><input type="radio" name="role" value="user" checked>user</input><br>
                 <input type="radio" name="role" value="admin">admin</input>
             </td>
-
         </tr>
         <tr><td><button type="submit">Submit</button></td></tr>
     </table>
 </form>
 
+
+<p><c:out value="${error}"/></p>
 
 <table border="1">
 
